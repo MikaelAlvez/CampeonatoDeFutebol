@@ -23,7 +23,7 @@ public class Main {
             campeonato.cadastrarTime(nomeTime);
         }
 
-        System.out.print("\nQuantos grupos terá o campeonato? ");
+        System.out.print("\nQuantidade de grupos: ");
         int numGrupos = scanner.nextInt();
 
         campeonato.sortearGrupos(numGrupos);
