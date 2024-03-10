@@ -18,26 +18,33 @@ class Campeonato {
     public void cadastrarTime(String nome) {
         times.add(new Time(nome));
     }
+
     public void sortearGrupos(int numGrupos) {
         Collections.shuffle(times);
         int numTimesPorGrupo = times.size() / numGrupos;
+        int numTimesRestantes = times.size() % numGrupos;
         int index = 0;
         for (int i = 0; i < numGrupos; i++) {
             List<Time> grupo = new ArrayList<>();
             for (int j = 0; j < numTimesPorGrupo && index < times.size(); j++) {
                 grupo.add(times.get(index++));
             }
+            if (numTimesRestantes > 0) {
+                grupo.add(times.get(index++));
+                numTimesRestantes--;
+            }
             grupos.add(grupo);
         }
-        System.out.println("\n-----GRUPOS-----");
+        System.out.println("\n-----TIMES-----");
         for (int i = 0; i < grupos.size(); i++) {
-        	if(grupos.size()>0) {
+        	if(grupos.size()>1) {
             System.out.println("Grupo " + (i + 1) + ": " + grupos.get(i));
         	}else {
-                System.out.println((i + 1) + " " + grupos.get(i) + "\n");
+                System.out.println(grupos.get(i) + "\n");
         	}
         }
     }
+
     public void gerarJogos() {
         for (List<Time> grupo : grupos) {
             List<Jogos> jogosGrupo = new ArrayList<>();
@@ -51,15 +58,20 @@ class Campeonato {
     }
 
     public void mostrarJogos() {
-        System.out.println("\n-----JOGOS-----");
         for (int i = 0; i < jogosGrupos.size(); i++) {
-        	if(grupos.size()>0) {
+        	if(grupos.size()>1) {
+	            List<List<Jogos>> jogosGrupo = jogosGrupos;
 	            System.out.println("\n-----GRUPO " + (i + 1) + "-----");
-	            List<Jogos> jogosGrupo = jogosGrupos.get(i);
-	            for (int j = 0; j < jogosGrupo.size(); j++) {
-	                System.out.println(jogosGrupo.get(j));
+	            for (int j = 0; j < jogosGrupo.get(i).size(); j++) {
+	                System.out.println(jogosGrupo.get(i).get(j));
+	            }
+        	}else {
+        		List<List<Jogos>> jogosGrupo = jogosGrupos;
+	            System.out.println("\n-----TIMES-----");
+	            for (int j = 0; j < jogosGrupo.get(i).size(); j++) {
+	                System.out.println(jogosGrupo.get(i).get(j));
 	            }
         	}
         }
-    }
+    } 
 }
