@@ -18,6 +18,6 @@ class Jogadores {
     }
 
     public String toString() {
-        return nome + " (Nível: " + nivel + ")";
+        return nome + " (" + nivel + " estrelas)";
     }
 }

@@ -8,6 +8,7 @@ class Campeonato {
     private List<Time> times;
     private List<List<Time>> grupos;
     private List<List<Jogos>> jogosGrupos;
+    private List<Jogos> todosJogos;
 
     public Campeonato() {
         times = new ArrayList<>();
@@ -17,6 +18,10 @@ class Campeonato {
 
     public void cadastrarTime(String nome) {
         times.add(new Time(nome));
+    }
+    
+    public List<Time> getTimes() {
+        return times;
     }
 
     public void sortearGrupos(int numGrupos) {
@@ -40,8 +45,12 @@ class Campeonato {
         	if(grupos.size()>1) {
             System.out.println("Grupo " + (i + 1) + ": " + grupos.get(i));
         	}else {
+                System.out.println("Grupo único:");
                 System.out.println(grupos.get(i) + "\n");
         	}
+        }
+        if(grupos.size()>1) {
+        System.out.print("\nSorteio realizado com sucesso!\n");
         }
     }
 
@@ -50,11 +59,13 @@ class Campeonato {
             List<Jogos> jogosGrupo = new ArrayList<>();
             for (int i = 0; i < grupo.size(); i++) {
                 for (int j = i + 1; j < grupo.size(); j++) {
-                    jogosGrupo.add(new Jogos(grupo.get(i), grupo.get(j)));
+                    jogosGrupo.add(new Jogos(grupo.get(i), grupo.get(j), j, j));
                 }
             }
             jogosGrupos.add(jogosGrupo);
         }
+        mostrarJogos();
+        System.out.print("\nJogos gerados com sucesso!\n");
     }
 
     public void mostrarJogos() {
@@ -74,4 +85,36 @@ class Campeonato {
         	}
         }
     } 
+    
+    public List<Jogos> getJogos() {
+        if (todosJogos == null) {
+            todosJogos = new ArrayList<>();
+            for (List<Jogos> jogosGrupo : jogosGrupos) {
+                todosJogos.addAll(jogosGrupo);
+            }
+        }
+        return todosJogos;
+    }
+    
+    public void editarPlacarJogo(int indiceJogo, int novoPlacarTime1, int novoPlacarTime2) {
+        Jogos jogo = null;
+        outerloop:
+        for (List<Jogos> jogosGrupo : jogosGrupos) {
+            for (Jogos j : jogosGrupo) {
+                if (indiceJogo == 0) {
+                    jogo = j;
+                    break outerloop;
+                }
+                indiceJogo--;
+            }
+        }
+        
+        if (jogo != null) {
+            jogo.setGolsTime1(novoPlacarTime1);
+            jogo.setGolsTime2(novoPlacarTime2);
+            System.out.println("Placar do jogo atualizado com sucesso!");
+        } else {
+            System.out.println("Índice de jogo inválido.");
+        }
+    }
 }
