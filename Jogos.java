@@ -11,8 +11,8 @@ public class Jogos {
     public Jogos(Time time1, Time time2, int golsTime1, int golsTime2) {
         this.time1 = time1;
         this.time2 = time2;
-        this.golsTime1 = golsTime1;
-        this.golsTime2 = golsTime2;
+        this.golsTime1 = 0;
+        this.golsTime2 = 0;
     }
 
     public Time getTime1() {
@@ -67,6 +67,11 @@ public class Jogos {
         } else {
             return null;
         }
+    }
+    
+    public void editarPlacar(int golsTime1, int golsTime2) {
+        this.golsTime1 = golsTime1;
+        this.golsTime2 = golsTime2;
     }
 
     @Override

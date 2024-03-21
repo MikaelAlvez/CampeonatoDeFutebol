@@ -29,6 +29,17 @@ public class Time {
     public List<Jogadores> getJogadores() {
         return jogadores;
     }
+    
+    public void mostrarJogadores() {
+        if (jogadores.isEmpty()) {
+            System.out.println("Sem jogadores cadastrados para o time " + nome);
+        } else {
+            System.out.println("Jogadores do time " + nome + ":");
+            for (Jogadores jogador : jogadores) {
+                System.out.println("Nome: " + jogador.getNome() + ", Time: " + nome + ", Nível: " + jogador.getNivel());
+            }
+        }
+    }
 
     public double getTotalNivel() {
         double total = 0;

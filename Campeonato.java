@@ -9,15 +9,22 @@ class Campeonato {
     private List<List<Time>> grupos;
     private List<List<Jogos>> jogosGrupos;
     private List<Jogos> todosJogos;
-
+    private List<Jogadores> jogadores;
+    
     public Campeonato() {
         times = new ArrayList<>();
         grupos = new ArrayList<>();
         jogosGrupos = new ArrayList<>();
+        todosJogos = new ArrayList<>();
+        jogadores = new ArrayList<>();
     }
 
     public void cadastrarTime(String nome) {
         times.add(new Time(nome));
+    }
+    
+    public void adicionarJogador(Jogadores jogador) {
+        jogadores.add(jogador);
     }
     
     public List<Time> getTimes() {
@@ -85,6 +92,13 @@ class Campeonato {
         	}
         }
     } 
+    
+    public Jogos getJogoPorIndice(int indice) {
+        if (indice >= 0 && indice < todosJogos.size()) {
+            return todosJogos.get(indice);
+        }
+        return null;
+    }
     
     public List<Jogos> getJogos() {
         if (todosJogos == null) {
