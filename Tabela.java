@@ -34,6 +34,7 @@ public class Tabela {
         }
         ordenarTabela();
     }
+    
     private void ordenarTabela() {
         Collections.sort(times, Comparator.comparing(Time::getPontos)
                                            .thenComparing(Time::getVitorias)

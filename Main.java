@@ -1,5 +1,11 @@
 package Projeto;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +16,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         Campeonato campeonato = new Campeonato();
         List<Jogadores> jogadores = new ArrayList<>();
-        
+                
         System.out.println("-----CAMPEONATO DE FUTEBOL-----");
 
         int opcao;
@@ -21,10 +27,9 @@ public class Main {
             System.out.println("3. Gerar Jogos");
             System.out.println("4. Cadastrar Jogadores");
             System.out.println("5. Distribuir Jogadores nos Times");
-            System.out.println("6. Times e Jogadores");
-            System.out.println("7. Tabela");
-            System.out.println("8. Editar Placar");
-            System.out.println("9. Artilharia");
+            System.out.println("6. Tabela");
+            System.out.println("7. Editar Placar");
+            System.out.println("8. Artilharia");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
             opcao = scanner.nextInt();
@@ -41,22 +46,43 @@ public class Main {
                     campeonato.gerarJogos();
                     break;
                 case 4:
-                    cadastrarJogadores(scanner, campeonato, jogadores);
+                    System.out.println("\n1. Cadastrar jogador\n" +
+                    		"2. Dados de um arquivo\n" +
+                    		"Escolha uma opção:");
+                    int opc = scanner.nextInt();
+                    
+                    switch (opc) {
+	                    case 1:
+	                        cadastrarJogadores(scanner, campeonato, jogadores);
+	                    break;
+	                	case 2:
+	                		System.out.print("Digite o nome do arquivo: ");
+	                        scanner.nextLine();
+	                        String nomeArquivo = scanner.nextLine();
+
+	                        nomeArquivo = Paths.get("").toAbsolutePath().toString() + File.separator + nomeArquivo;
+	                        
+						lerJogadoresDoArquivo(nomeArquivo, jogadores, campeonato);
+
+						for (Jogadores jogador : jogadores) {
+						    System.out.println("Nome: " + jogador.getNome() + ", Nível: " + jogador.getNivel());
+						}
+	                    break;
+				        default:
+				            System.out.println("\nOpção inválida. Por favor, escolha uma opção válida.");
+                    }
                     break;
                 case 5:
                     distribuirJogadoresNosTimes(scanner, campeonato, jogadores);
                     break;
                 case 6:
-
-                	break;
-                case 7:
                     mostrarTabela(campeonato);
                     break;
-                case 8:
+                case 7:
                     campeonato.mostrarJogos();
                     editarPlacar(scanner, campeonato);
                     break;
-                case 9:
+                case 8:
                     mostrarArtilharia(campeonato);
                     break;
                 case 0:
@@ -99,12 +125,15 @@ public class Main {
         System.out.print("\nQuantos jogadores deseja cadastrar? ");
         int numJogadores = scanner.nextInt();
         scanner.nextLine();
-
+        
+        DecimalFormat df = new DecimalFormat("#.##");
+        
         for (int i = 0; i < numJogadores; i++) {
-            System.out.print("Nome do jogador " + (i + 1) + ": ");
+            System.out.print("\nNome do jogador " + (i + 1) + ": ");
             String nomeJogador = scanner.nextLine();
             System.out.print("Nível do jogador " + (i + 1) + " (de 0 a 10): ");
-            double nivelJogador = scanner.nextDouble();
+            double nivelJogador = Double.parseDouble(df.format(scanner.nextDouble()));
+            
             scanner.nextLine();
             Jogadores jogador = new Jogadores(nomeJogador, nivelJogador);
             jogadores.add(jogador);
@@ -113,6 +142,31 @@ public class Main {
 
 
         System.out.print("\nJogadores cadastrados com sucesso!\n");
+    }
+    
+    private static void lerJogadoresDoArquivo(String nomeArquivo, List<Jogadores> jogadores, Campeonato campeonato) {
+        try {
+            File arquivo = new File(nomeArquivo);
+            FileReader fr = new FileReader(arquivo);
+            BufferedReader br = new BufferedReader(fr);
+
+            String linha;
+            while ((linha = br.readLine()) != null) {
+                String[] partes = linha.split(" ");
+                if (partes.length >= 2) {
+                    String nomeJogador = partes[0];
+                    double nivelJogador = Double.parseDouble(partes[1]);
+                    Jogadores jogador = new Jogadores(nomeJogador, nivelJogador);
+                    jogadores.add(jogador);
+                    campeonato.adicionarJogador(jogador);
+                }
+            }
+
+            br.close();
+            fr.close();
+        } catch (IOException e) {
+            System.err.println("\nErro ao ler o arquivo: " + e.getMessage());
+        }
     }
     
     private static void distribuirJogadoresNosTimes(Scanner scanner, Campeonato campeonato, List<Jogadores> jogadores) {
@@ -154,8 +208,10 @@ public class Main {
             }
 
             double mediaNivelTime = somaNivelTime / numJogadoresPorTime;
+            String mediaFormatada = String.format("%.2f", mediaNivelTime);
+            
             System.out.println("\nNível total do time: " + somaNivelTime);
-            System.out.println("Média do nível do time: " + mediaNivelTime);
+            System.out.println("Média do nível do time: " + mediaFormatada);
         }
 
         System.out.println("\nJogadores distribuídos nos times com sucesso!");

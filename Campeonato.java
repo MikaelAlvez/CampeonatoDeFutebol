@@ -77,21 +77,27 @@ class Campeonato {
 
     public void mostrarJogos() {
         for (int i = 0; i < jogosGrupos.size(); i++) {
-        	if(grupos.size()>1) {
-	            List<List<Jogos>> jogosGrupo = jogosGrupos;
-	            System.out.println("\n-----GRUPO " + (i + 1) + "-----");
-	            for (int j = 0; j < jogosGrupo.get(i).size(); j++) {
-	                System.out.println(jogosGrupo.get(i).get(j));
-	            }
-        	}else {
-        		List<List<Jogos>> jogosGrupo = jogosGrupos;
-	            System.out.println("\n-----TIMES-----");
-	            for (int j = 0; j < jogosGrupo.get(i).size(); j++) {
-	                System.out.println(jogosGrupo.get(i).get(j));
-	            }
-        	}
+            List<List<Jogos>> jogosGrupo = jogosGrupos;
+            if (grupos.size() > 1) {
+                System.out.println("\n-----GRUPO " + (i + 1) + "-----");
+            } else {
+                System.out.println("\n-----TIMES-----");
+            }
+            for (int j = 0; j < jogosGrupo.get(i).size(); j++) {
+                Jogos jogo = jogosGrupo.get(i).get(j);
+                Time time1 = jogo.getTime1();
+                Time time2 = jogo.getTime2();
+                int placarTime1 = jogo.getGolsTime1();
+                int placarTime2 = jogo.getGolsTime2();
+                if (grupos.size() > 1) {
+                    System.out.println(time1.getNome() + " " + placarTime1 + " x " + placarTime2 + " " + time2.getNome());
+                } else {
+                    System.out.println(jogo);
+                }
+            }
         }
-    } 
+    }
+
     
     public Jogos getJogoPorIndice(int indice) {
         if (indice >= 0 && indice < todosJogos.size()) {
