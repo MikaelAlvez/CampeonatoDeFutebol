@@ -41,14 +41,25 @@ public class Tabela {
                                            .thenComparing(Time::getSaldoGols)
                                            .reversed());
     }
-
-    public void mostrarTabela() {
-        System.out.println("\nPos | Time           | P | V | GM | GC | SG");
-        System.out.println("----------------------------------------------");
-        int posicao = 1;
-        for (Time time : times) {
-            System.out.printf("%-4d| %-15s | %-2d| %-2d| %-3d| %-3d| %-3d\n", posicao++, time.getNome(), time.getPontos(), time.getVitorias(),
-                    time.getGolsMarcados(), time.getGolsSofridos(), time.getSaldoGols());
+    
+    static void mostrarTabela(Campeonato campeonato) {
+        List<List<Time>> grupos = campeonato.getGrupos();
+        int indice = 1;
+        if (grupos != null && !grupos.isEmpty()) {
+            for (List<Time> grupo : grupos) {
+            	System.out.println("\n-----GRUPO " + indice + "-----");
+                int posicao = 1;
+                System.out.println("\nPos | Time            | P | V | GM | GC | SG");
+                System.out.println("----------------------------------------------");
+                for (Time time : grupo) {
+                	System.out.printf("%-4d| %-15s | %-2d| %-2d| %-3d| %-3d| %-3d\n", posicao++, time.getNome(), time.getPontos(), time.getVitorias(),
+                            time.getGolsMarcados(), time.getGolsSofridos(), time.getSaldoGols());
+                }
+                indice++;
+            }
+        } else {
+            System.out.println("Não há grupos para exibir.");
         }
     }
+
 }

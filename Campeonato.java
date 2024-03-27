@@ -97,7 +97,10 @@ class Campeonato {
             }
         }
     }
-
+    
+    public List<List<Time>> getGrupos() {
+        return grupos;
+    }
     
     public Jogos getJogoPorIndice(int indice) {
         if (indice >= 0 && indice < todosJogos.size()) {

@@ -81,6 +81,7 @@ public class Main {
                 case 7:
                     campeonato.mostrarJogos();
                     editarPlacar(scanner, campeonato);
+                    mostrarTabela(campeonato);
                     break;
                 case 8:
                     mostrarArtilharia(campeonato);
@@ -221,21 +222,31 @@ public class Main {
         List<Time> times = campeonato.getTimes();
         Tabela tabela = new Tabela(times);
         tabela.atualizarTabela(campeonato.getJogos());
-        tabela.mostrarTabela();
+        Tabela.mostrarTabela(campeonato);
     }
     
     private static void editarPlacar(Scanner scanner, Campeonato campeonato) {
-        System.out.println("índice do Jogo: ");
+        System.out.println("\nÍndice do Jogo: ");
         int indiceJogo = scanner.nextInt();
         scanner.nextLine();
         
-        System.out.println("Digite o novo placar para o Time 1:");
-        int novoPlacarTime1 = scanner.nextInt();
-        System.out.println("Digite o novo placar para o Time 2:");
-        int novoPlacarTime2 = scanner.nextInt();
+        Jogos jogo = campeonato.getJogoPorIndice(indiceJogo);
         
-        campeonato.editarPlacarJogo(indiceJogo, novoPlacarTime1, novoPlacarTime2);
+        if (jogo != null) {
+            Time time1 = jogo.getTime1();
+            Time time2 = jogo.getTime2();
+            
+            System.out.println("Digite o novo placar para o Time " + time1.getNome() + ":");
+            int novoPlacarTime1 = scanner.nextInt();
+            System.out.println("Digite o novo placar para o Time " + time2.getNome() + ":");
+            int novoPlacarTime2 = scanner.nextInt();
+            
+            campeonato.editarPlacarJogo(indiceJogo, novoPlacarTime1, novoPlacarTime2);
+        } else {
+            System.out.println("Índice de jogo inválido.");
+        }
     }
+
 
     private static void mostrarArtilharia(Campeonato campeonato) {
         // Implemente a lógica para mostrar a artilharia do campeonato

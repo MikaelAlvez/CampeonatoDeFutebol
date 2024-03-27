@@ -51,17 +51,17 @@
          <children>
             <ImageView fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/fundo-de-futebol-gradiente-dinamico/5618236.jpg" />
+                  <Image url="@5618236.jpg" />
                </image>
             </ImageView>
-            <TableView layoutX="248.0" layoutY="117.0" prefHeight="466.0" prefWidth="411.0">
+            <TableView layoutX="285.0" layoutY="110.0" prefHeight="466.0" prefWidth="411.0">
               <columns>
                 <TableColumn prefWidth="269.0" text="Jogador" />
                 <TableColumn minWidth="7.0" prefWidth="72.0" text="Gols" />
                   <TableColumn prefWidth="69.0" text="Jogos" />
               </columns>
             </TableView>
-            <Button layoutX="368.0" layoutY="612.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Voltar" textAlignment="CENTER">
+            <Button layoutX="405.0" layoutY="605.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Voltar" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -72,7 +72,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Text fill="WHITE" layoutX="320.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artilharia" textAlignment="CENTER">
+            <Text fill="WHITE" layoutX="357.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Artilharia" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="50.0" />
                </font>

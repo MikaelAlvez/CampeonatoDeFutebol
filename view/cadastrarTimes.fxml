@@ -51,10 +51,10 @@
          <children>
             <ImageView fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/fundo-de-futebol-gradiente-dinamico/5618236.jpg" />
+                  <Image url="@5618236.jpg" />
                </image>
             </ImageView>
-            <Button layoutX="546.0" layoutY="610.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Salvar" textAlignment="CENTER">
+            <Button layoutX="546.0" layoutY="608.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Salvar" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -65,7 +65,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="264.0" layoutY="610.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Voltar" textAlignment="CENTER">
+            <Button layoutX="264.0" layoutY="608.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Voltar" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -76,7 +76,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <MenuButton layoutX="430.0" layoutY="125.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="120.0" text="Selecionar">
+            <MenuButton layoutX="430.0" layoutY="123.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="120.0" text="Selecionar">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -85,7 +85,7 @@
                   <Font size="15.0" />
                </font>
             </MenuButton>
-            <Text fill="WHITE" layoutX="224.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CADASTRAR TIMES" textAlignment="CENTER">
+            <Text fill="WHITE" layoutX="224.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CADASTRAR TIMES" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="50.0" />
                </font>

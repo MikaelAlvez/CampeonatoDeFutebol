@@ -7,6 +7,8 @@ public class Time {
     private String nome;
     private int pontos;
     private int vitorias;
+    private int empate;
+    private int derrotas;
     private int golsMarcados;
     private int golsSofridos;
     private int saldoGols;
@@ -18,7 +20,7 @@ public class Time {
         this.vitorias = 0;
         this.golsMarcados = 0;
         this.golsSofridos = 0;
-        this.saldoGols = 0;
+        this.saldoGols = golsMarcados-golsSofridos;
         this.jogadores = new ArrayList<>();
     }
 
@@ -86,7 +88,7 @@ public class Time {
 	}
 
 	public int getSaldoGols() {
-		return saldoGols;
+		return getGolsMarcados()-getGolsSofridos();
 	}
 
 	public void setSaldoGols(int saldoGols) {
@@ -113,4 +115,20 @@ public class Time {
     public String toString() {
         return nome;
     }
+
+	public int getEmpate() {
+		return empate;
+	}
+
+	public void setEmpate(int empate) {
+		this.empate = empate;
+	}
+
+	public int getDerrotas() {
+		return derrotas;
+	}
+
+	public void setDerrotas(int derrotas) {
+		this.derrotas = derrotas;
+	}
 }

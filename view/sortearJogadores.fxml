@@ -51,10 +51,10 @@
          <children>
             <ImageView fitHeight="700.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../Downloads/fundo-de-futebol-gradiente-dinamico/5618236.jpg" />
+                  <Image url="@5618236.jpg" />
                </image>
             </ImageView>
-            <MenuButton layoutX="237.0" layoutY="119.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Jogadores por time">
+            <MenuButton layoutX="274.0" layoutY="114.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Jogadores por time">
               <items>
                 <MenuItem mnemonicParsing="false" text="Action 1" />
                 <MenuItem mnemonicParsing="false" text="Action 2" />
@@ -63,7 +63,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </MenuButton>
-            <Button layoutX="526.0" layoutY="612.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Salvar" textAlignment="CENTER">
+            <Button layoutX="550.0" layoutY="607.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Salvar" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -74,7 +74,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="244.0" layoutY="612.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Voltar" textAlignment="CENTER">
+            <Button layoutX="268.0" layoutY="607.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="170.0" text="Voltar" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
@@ -91,7 +91,7 @@
                </font>
             </Text>
             <ToggleButtonGroup layoutX="453.0" layoutY="338.0" selectionType="SINGLE" />
-            <Button layoutX="470.0" layoutY="119.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Sortear Times" textAlignment="CENTER">
+            <Button layoutX="507.0" layoutY="114.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="200.0" text="Sortear Times" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
