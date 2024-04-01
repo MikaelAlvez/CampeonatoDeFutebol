@@ -66,7 +66,7 @@ class Campeonato {
             List<Jogos> jogosGrupo = new ArrayList<>();
             for (int i = 0; i < grupo.size(); i++) {
                 for (int j = i + 1; j < grupo.size(); j++) {
-                    jogosGrupo.add(new Jogos(grupo.get(i), grupo.get(j), j, j));
+                    jogosGrupo.add(new Jogos(grupo.get(i), grupo.get(j), 0, 0));
                 }
             }
             jogosGrupos.add(jogosGrupo);
@@ -89,14 +89,11 @@ class Campeonato {
                 Time time2 = jogo.getTime2();
                 int placarTime1 = jogo.getGolsTime1();
                 int placarTime2 = jogo.getGolsTime2();
-                if (grupos.size() > 1) {
-                    System.out.println(time1.getNome() + " " + placarTime1 + " x " + placarTime2 + " " + time2.getNome());
-                } else {
-                    System.out.println(jogo);
-                }
+                System.out.println(time1.getNome() + " " + placarTime1 + " x " + placarTime2 + " " + time2.getNome());
             }
         }
     }
+
     
     public List<List<Time>> getGrupos() {
         return grupos;

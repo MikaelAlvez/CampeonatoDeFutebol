@@ -21,19 +21,19 @@ public class Main {
 
         int opcao;
         do {
-            System.out.println("\n----- MENU -----");
-            System.out.println("1. Cadastrar Times");
-            System.out.println("2. Sortear Grupos");
-            System.out.println("3. Gerar Jogos");
-            System.out.println("4. Cadastrar Jogadores");
-            System.out.println("5. Distribuir Jogadores nos Times");
-            System.out.println("6. Tabela");
-            System.out.println("7. Editar Placar");
-            System.out.println("8. Artilharia");
-            System.out.println("0. Sair");
-            System.out.print("Escolha uma opção: ");
+            System.out.println("\n1. Cadastrar Times\n" +
+            		"2. Sortear Grupos\n" +
+            		"3. Gerar Jogos\n" +
+            		"4. Cadastrar Jogadores\n" +
+            		"5. Distribuir Jogadores nos Times\n" +
+            		"6. Tabela\n" +
+            		"7. Editar Placar\n" +
+            		"8. Artilharia\n" +
+            		"0. Sair\n" +
+            		"Escolha uma opção: ");
             opcao = scanner.nextInt();
             scanner.nextLine();
+            System.out.println("-----------------------------------");
 
             switch (opcao) {
                 case 1:
@@ -226,27 +226,45 @@ public class Main {
     }
     
     private static void editarPlacar(Scanner scanner, Campeonato campeonato) {
-        System.out.println("\nÍndice do Jogo: ");
-        int indiceJogo = scanner.nextInt();
+        List<List<Time>> grupos = campeonato.getGrupos();
+        
+        System.out.println("\n");
+        for (int i = 0; i < grupos.size(); i++) {
+            System.out.println((i + 1) + ". Grupo " + (i + 1));
+        }
+        System.out.println("Escolha o grupo:");
+        int indiceGrupo = scanner.nextInt();
         scanner.nextLine();
         
-        Jogos jogo = campeonato.getJogoPorIndice(indiceJogo);
-        
-        if (jogo != null) {
-            Time time1 = jogo.getTime1();
-            Time time2 = jogo.getTime2();
+        if (indiceGrupo >= 1 && indiceGrupo <= grupos.size()) {
+            List<Time> grupoSelecionado = grupos.get(indiceGrupo - 1);
             
-            System.out.println("Digite o novo placar para o Time " + time1.getNome() + ":");
-            int novoPlacarTime1 = scanner.nextInt();
-            System.out.println("Digite o novo placar para o Time " + time2.getNome() + ":");
-            int novoPlacarTime2 = scanner.nextInt();
+            System.out.println("\n");
+            for (int i = 0; i < grupoSelecionado.size(); i++) {
+                System.out.println((i + 1) + ". Jogo " + (i + 1) + ": " + grupoSelecionado.get(i).getNome() + " x " + grupoSelecionado.get(i + 1).getNome());
+            }            
+            System.out.println("Escolha o jogo:");
+            int indiceJogo = scanner.nextInt();
+            scanner.nextLine();
             
-            campeonato.editarPlacarJogo(indiceJogo, novoPlacarTime1, novoPlacarTime2);
+            if (indiceJogo >= 1 && indiceJogo <= grupoSelecionado.size()) {
+                Jogos jogo = campeonato.getJogos().get(indiceJogo - 1);
+                Time time1 = jogo.getTime1();
+                Time time2 = jogo.getTime2();
+                
+                System.out.println("Digite o novo placar para o Time " + time1.getNome() + ":");
+                int novoPlacarTime1 = scanner.nextInt();
+                System.out.println("Digite o novo placar para o Time " + time2.getNome() + ":");
+                int novoPlacarTime2 = scanner.nextInt();
+                
+                campeonato.editarPlacarJogo(indiceJogo - 1, novoPlacarTime1, novoPlacarTime2);
+            } else {
+                System.out.println("Índice de jogo inválido.");
+            }
         } else {
-            System.out.println("Índice de jogo inválido.");
+            System.out.println("Índice de grupo inválido.");
         }
     }
-
 
     private static void mostrarArtilharia(Campeonato campeonato) {
         // Implemente a lógica para mostrar a artilharia do campeonato

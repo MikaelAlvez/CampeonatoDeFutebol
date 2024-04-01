@@ -47,7 +47,12 @@ public class Tabela {
         int indice = 1;
         if (grupos != null && !grupos.isEmpty()) {
             for (List<Time> grupo : grupos) {
-            	System.out.println("\n-----GRUPO " + indice + "-----");
+            	if(grupos.size()>1) {
+            		System.out.println("\n-------------------GRUPO " + indice + "-------------------");
+            	}else {
+                    System.out.println("\n-------------------TABELA--------------------");
+            	}
+            	
                 int posicao = 1;
                 System.out.println("\nPos | Time            | P | V | GM | GC | SG");
                 System.out.println("----------------------------------------------");
