@@ -29,6 +29,7 @@ public class Main {
             		"6. Tabela\n" +
             		"7. Editar Placar\n" +
             		"8. Artilharia\n" +
+            		"9. Buscar Jogador\n" +
             		"0. Sair\n" +
             		"Escolha uma opção: ");
             opcao = scanner.nextInt();
@@ -86,6 +87,9 @@ public class Main {
                 case 8:
                     mostrarArtilharia(campeonato);
                     break;
+                case 9:
+                	buscarJogador(jogadores);
+                	break;
                 case 0:
                     System.out.println("Saindo do programa...");
                     break;
@@ -265,8 +269,49 @@ public class Main {
             System.out.println("Índice de grupo inválido.");
         }
     }
-
+    
     private static void mostrarArtilharia(Campeonato campeonato) {
-        // Implemente a lógica para mostrar a artilharia do campeonato
+    	
+    }
+    
+    private static void buscarJogador(List<Jogadores> jogadores) {
+        Scanner scanner = new Scanner(System.in);
+        
+        Collections.sort(jogadores, (j1, j2) -> j1.getNome().compareToIgnoreCase(j2.getNome()));
+        
+        System.out.print("\nNome do jogador: ");
+        String nomeBusca = scanner.nextLine().trim();
+        
+        int indice = buscaBinaria(jogadores, nomeBusca);
+        
+        if (indice != -1) {
+            Jogadores jogadorEncontrado = jogadores.get(indice);
+            
+            System.out.println("\nJogador encontrado!" +
+            		"\nNome: " + jogadorEncontrado.getNome() +
+            		"\nNível: " + jogadorEncontrado.getNivel());
+        } else {
+            System.out.println("\nJogador não encontrado!");
+        }
+    }
+
+    private static int buscaBinaria(List<Jogadores> jogadores, String nomeBusca) {
+        int inicio = 0;
+        int fim = jogadores.size() - 1;
+        
+        while (inicio <= fim) {
+            int meio = (inicio + fim) / 2;
+            String nomeAtual = jogadores.get(meio).getNome();
+            
+            if (nomeAtual.equalsIgnoreCase(nomeBusca)) {
+                return meio;
+            } else if (nomeAtual.compareToIgnoreCase(nomeBusca) < 0) {
+                inicio = meio + 1;
+            } else {
+                fim = meio - 1;
+            }
+        }
+        
+        return -1;
     }
 }
