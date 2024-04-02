@@ -23,17 +23,25 @@ public class Tabela {
             time2.adicionarGolsMarcados(golsTime2);
             time2.adicionarGolsSofridos(golsTime1);
 
-            Time vencedor = jogo.getVencedor();
-            if (vencedor != null) {
-                vencedor.incrementarPontos(3);
-                vencedor.incrementarVitorias();
+            if (golsTime1 > golsTime2) {
+                time1.incrementarPontos(3);
+                time1.incrementarVitorias();
+            } else if (golsTime2 > golsTime1) {
+                time2.incrementarPontos(3);
+                time2.incrementarVitorias();
             } else {
                 time1.incrementarPontos(1);
                 time2.incrementarPontos(1);
             }
+
+            // Atualizar o saldo de gols
+            time1.getSaldoGols();
+            time2.getSaldoGols();
         }
         ordenarTabela();
     }
+
+
     
     private void ordenarTabela() {
         Collections.sort(times, Comparator.comparing(Time::getPontos)

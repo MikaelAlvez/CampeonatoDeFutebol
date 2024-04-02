@@ -68,6 +68,7 @@ public class Jogos {
             return null;
         }
     }
+
     
     public void editarPlacar(int golsTime1, int golsTime2) {
         this.golsTime1 = golsTime1;

@@ -118,23 +118,31 @@ class Campeonato {
     
     public void editarPlacarJogo(int indiceJogo, int novoPlacarTime1, int novoPlacarTime2) {
         Jogos jogo = null;
+        int totalJogos = 0;
+        for (List<Jogos> jogosGrupo : jogosGrupos) {
+            totalJogos += jogosGrupo.size();
+        }
+
+        int contador = 0;
         outerloop:
         for (List<Jogos> jogosGrupo : jogosGrupos) {
             for (Jogos j : jogosGrupo) {
-                if (indiceJogo == 0) {
+                if (contador == indiceJogo) {
                     jogo = j;
                     break outerloop;
                 }
-                indiceJogo--;
+                contador++;
             }
         }
         
         if (jogo != null) {
             jogo.setGolsTime1(novoPlacarTime1);
             jogo.setGolsTime2(novoPlacarTime2);
-            System.out.println("Placar do jogo atualizado com sucesso!");
+            System.out.println("\nPlacar do jogo atualizado com sucesso!");
         } else {
-            System.out.println("Índice de jogo inválido.");
+            System.out.println("\nÍndice de jogo inválido.");
         }
     }
+
+
 }

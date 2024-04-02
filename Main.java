@@ -30,6 +30,7 @@ public class Main {
             		"7. Editar Placar\n" +
             		"8. Artilharia\n" +
             		"9. Buscar Jogador\n" +
+            		"10. Listar Jogadores\n" +
             		"0. Sair\n" +
             		"Escolha uma opção: ");
             opcao = scanner.nextInt();
@@ -82,6 +83,7 @@ public class Main {
                 case 7:
                     campeonato.mostrarJogos();
                     editarPlacar(scanner, campeonato);
+                    campeonato.mostrarJogos();
                     mostrarTabela(campeonato);
                     break;
                 case 8:
@@ -89,6 +91,9 @@ public class Main {
                     break;
                 case 9:
                 	buscarJogador(jogadores);
+                	break;
+                case 10:
+                	listarJogador(jogadores);
                 	break;
                 case 0:
                     System.out.println("Saindo do programa...");
@@ -243,25 +248,35 @@ public class Main {
         if (indiceGrupo >= 1 && indiceGrupo <= grupos.size()) {
             List<Time> grupoSelecionado = grupos.get(indiceGrupo - 1);
             
-            System.out.println("\n");
+            System.out.println("\n-----GRUPO " + indiceGrupo + "-----");
+            int count = 1;
             for (int i = 0; i < grupoSelecionado.size(); i++) {
-                System.out.println((i + 1) + ". Jogo " + (i + 1) + ": " + grupoSelecionado.get(i).getNome() + " x " + grupoSelecionado.get(i + 1).getNome());
+                for (int j = i + 1; j < grupoSelecionado.size(); j++) {
+                    System.out.println(count + ". Jogo " + count + ": " + grupoSelecionado.get(i).getNome() + " x " + grupoSelecionado.get(j).getNome());
+                    count++;
+                }
             }            
+            
             System.out.println("Escolha o jogo:");
             int indiceJogo = scanner.nextInt();
             scanner.nextLine();
             
-            if (indiceJogo >= 1 && indiceJogo <= grupoSelecionado.size()) {
-                Jogos jogo = campeonato.getJogos().get(indiceJogo - 1);
-                Time time1 = jogo.getTime1();
-                Time time2 = jogo.getTime2();
-                
-                System.out.println("Digite o novo placar para o Time " + time1.getNome() + ":");
-                int novoPlacarTime1 = scanner.nextInt();
-                System.out.println("Digite o novo placar para o Time " + time2.getNome() + ":");
-                int novoPlacarTime2 = scanner.nextInt();
-                
-                campeonato.editarPlacarJogo(indiceJogo - 1, novoPlacarTime1, novoPlacarTime2);
+            if (indiceJogo >= 1 && indiceJogo <= (grupoSelecionado.size() * (grupoSelecionado.size() - 1) / 2)) {
+                int index = 1;
+                for (int i = 0; i < grupoSelecionado.size(); i++) {
+                    for (int j = i + 1; j < grupoSelecionado.size(); j++) {
+                        if (index == indiceJogo) {
+                            System.out.println("Gols " + grupoSelecionado.get(i).getNome() + ":");
+                            int novoPlacarTime1 = scanner.nextInt();
+                            System.out.println("Gols " + grupoSelecionado.get(j).getNome() + ":");
+                            int novoPlacarTime2 = scanner.nextInt();
+                            
+                            campeonato.editarPlacarJogo(indiceJogo - 1, novoPlacarTime1, novoPlacarTime2);
+                            return;
+                        }
+                        index++;
+                    }
+                }
             } else {
                 System.out.println("Índice de jogo inválido.");
             }
@@ -269,6 +284,7 @@ public class Main {
             System.out.println("Índice de grupo inválido.");
         }
     }
+
     
     private static void mostrarArtilharia(Campeonato campeonato) {
     	
@@ -313,5 +329,9 @@ public class Main {
         }
         
         return -1;
+    }
+    
+    private static void listarJogador(List<Jogadores> jogadores) {
+    	
     }
 }
