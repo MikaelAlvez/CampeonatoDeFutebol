@@ -1,6 +1,8 @@
 package Projeto;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Jogos {
     private Time time1;

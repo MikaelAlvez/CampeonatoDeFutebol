@@ -34,14 +34,11 @@ public class Tabela {
                 time2.incrementarPontos(1);
             }
 
-            // Atualizar o saldo de gols
             time1.getSaldoGols();
             time2.getSaldoGols();
         }
         ordenarTabela();
     }
-
-
     
     private void ordenarTabela() {
         Collections.sort(times, Comparator.comparing(Time::getPontos)

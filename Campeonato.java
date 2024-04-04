@@ -1,8 +1,12 @@
 package Projeto;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Scanner;
 
 class Campeonato {
     private List<Time> times;
@@ -29,6 +33,12 @@ class Campeonato {
     
     public List<Time> getTimes() {
         return times;
+    }
+    
+    static void sortearGrupos(Scanner scanner, Campeonato campeonato) {
+        System.out.print("\nQuantidade de grupos: ");
+        int numGrupos = scanner.nextInt();
+        campeonato.sortearGrupos(numGrupos);
     }
 
     public void sortearGrupos(int numGrupos) {
@@ -57,7 +67,7 @@ class Campeonato {
         	}
         }
         if(grupos.size()>1) {
-        System.out.print("\nSorteio realizado com sucesso!\n");
+        	System.out.print("\nSorteio realizado com sucesso!\n");
         }
     }
 
@@ -93,6 +103,38 @@ class Campeonato {
             }
         }
     }
+    
+    static void mostrarTabela(Campeonato campeonato) {
+        List<Time> times = campeonato.getTimes();
+        Tabela tabela = new Tabela(times);
+        tabela.atualizarTabela(campeonato.getJogos());
+        Tabela.mostrarTabela(campeonato);
+    }
+    
+    public void escreverJogosEmArquivo(String nomeArquivo) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeArquivo))) {
+            for (int i = 0; i < jogosGrupos.size(); i++) {
+                List<List<Jogos>> jogosGrupo = jogosGrupos;
+                if (grupos.size() > 1) {
+                    writer.write("\n-----GRUPO " + (i + 1) + "-----\n");
+                } else {
+                    writer.write("\n-----TIMES-----\n");
+                }
+                for (int j = 0; j < jogosGrupo.get(i).size(); j++) {
+                    Jogos jogo = jogosGrupo.get(i).get(j);
+                    Time time1 = jogo.getTime1();
+                    Time time2 = jogo.getTime2();
+                    int placarTime1 = jogo.getGolsTime1();
+                    int placarTime2 = jogo.getGolsTime2();
+                    String linha = time1.getNome() + " " + placarTime1 + " x " + placarTime2 + " " + time2.getNome() + "\n";
+                    writer.write(linha);
+                }
+            }
+            System.out.println("\nArquivo " + nomeArquivo + ".txt gerado com sucesso!");
+        } catch (IOException e) {
+            System.err.println("\nErro ao escrever o arquivo: " + e.getMessage());
+        }
+    }
 
     
     public List<List<Time>> getGrupos() {
@@ -116,9 +158,24 @@ class Campeonato {
         return todosJogos;
     }
     
-    public void editarPlacarJogo(int indiceJogo, int novoPlacarTime1, int novoPlacarTime2) {
+    public void editarPlacarJogo() {
+        Scanner scanner2 = new Scanner(System.in);
+
         Jogos jogo = null;
         int totalJogos = 0;
+        
+        System.out.print("Digite o índice do jogo: ");
+        int indiceJogo = scanner2.nextInt();
+        scanner2.nextLine();
+        
+        System.out.print("Placar do time 1: ");
+        int placarTime1 = scanner2.nextInt();
+        scanner2.nextLine();
+
+        System.out.print("Placar do time 2: ");
+        int placarTime2 = scanner2.nextInt();
+        scanner2.nextLine();
+       
         for (List<Jogos> jogosGrupo : jogosGrupos) {
             totalJogos += jogosGrupo.size();
         }
@@ -127,7 +184,7 @@ class Campeonato {
         outerloop:
         for (List<Jogos> jogosGrupo : jogosGrupos) {
             for (Jogos j : jogosGrupo) {
-                if (contador == indiceJogo) {
+                if (contador == indiceJogo-1) {
                     jogo = j;
                     break outerloop;
                 }
@@ -136,13 +193,12 @@ class Campeonato {
         }
         
         if (jogo != null) {
-            jogo.setGolsTime1(novoPlacarTime1);
-            jogo.setGolsTime2(novoPlacarTime2);
+            jogo.setGolsTime1(placarTime1);
+            jogo.setGolsTime2(placarTime2);
             System.out.println("\nPlacar do jogo atualizado com sucesso!");
         } else {
             System.out.println("\nÍndice de jogo inválido.");
         }
     }
-
 
 }

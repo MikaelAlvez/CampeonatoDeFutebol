@@ -2,6 +2,7 @@ package Projeto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Time {
     private String nome;
@@ -13,6 +14,7 @@ public class Time {
     private int golsSofridos;
     private int saldoGols;
     private List<Jogadores> jogadores;
+    Campeonato campeonato = new Campeonato();
 
     public Time(String nome) {
     	this.nome = nome;
@@ -30,6 +32,27 @@ public class Time {
 
     public List<Jogadores> getJogadores() {
         return jogadores;
+    }
+    
+    static void cadastrarTimes(Scanner scanner, Campeonato campeonato) {
+        System.out.print("\nQuantos times deseja cadastrar? ");
+        int numTimes = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.println("\n-----CADASTRO DE TIMES-----");
+        for (int i = 0; i < numTimes; i++) {
+            System.out.print("Time " + (i + 1) + ": ");
+            String nomeTime = scanner.nextLine();
+            campeonato.cadastrarTime(nomeTime);
+        }
+        
+        System.out.print("\nTimes cadastrados com sucesso!\n");
+        List<Time> timesCadastrados = campeonato.getTimes();
+        List<String> nomesTimes = new ArrayList<>();
+        for (Time time : timesCadastrados) {
+            nomesTimes.add(time.getNome());
+        }
+        System.out.println(nomesTimes);
     }
     
     public void mostrarJogadores() {
