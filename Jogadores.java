@@ -6,14 +6,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 class Jogadores {
     private String nome;
     private double nivel;
-    private Jogadores proximo;
     private Time time;
+    private static LinkedList<Jogadores> filaEspera = new LinkedList<>();
+    private Jogadores proximo;
 
     public Jogadores(String nome, double nivel) {
         this.nome = nome;
@@ -43,6 +45,28 @@ class Jogadores {
         System.out.print("\nJogadores cadastrados com sucesso!\n");
     }
     
+    public static void adicionarJogadorNaFila(Jogadores jogador) {
+        filaEspera.add(jogador);
+    }
+
+    public static Jogadores removerJogadorDaFila() {
+        if (filaEspera.isEmpty()) {
+            return null;
+        }
+        return filaEspera.remove();
+    }
+
+    public static void listarJogadoresNaFila() {
+        if (filaEspera.isEmpty()) {
+            System.out.println("Não há jogadores na fila de espera.");
+        } else {
+            System.out.println("Jogadores na fila de espera:");
+            for (Jogadores jogador : filaEspera) {
+                System.out.println("Nome: " + jogador.getNome() + ", Nível: " + jogador.getNivel());
+            }
+        }
+    }
+    
     static void lerJogadoresDoArquivo(String nomeArquivo, List<Jogadores> jogadores, Campeonato campeonato) {
         try {
             File arquivo = new File(nomeArquivo);
@@ -67,58 +91,6 @@ class Jogadores {
             System.err.println("\nErro ao ler o arquivo: " + e.getMessage());
         }
     }
-    
-    static void distribuirJogadoresNosTimes(Scanner scanner, Campeonato campeonato, List<Jogadores> jogadores) {
-        System.out.print("Quantos jogadores em cada time? ");
-        int numJogadoresPorTime = scanner.nextInt();
-        scanner.nextLine();
-
-        List<Time> times = campeonato.getTimes();
-        int numTimes = times.size();
-        int numJogadores = jogadores.size();
-
-        if (numJogadores < numJogadoresPorTime * numTimes) {
-            System.out.println("\nNão há jogadores suficientes para distribuir entre os times.");
-        }
-        
-        System.out.println("\nNúmero de jogadores inscritos: " + numJogadores);
-        System.out.println("Número de time inscritos: " + numTimes);
-        System.out.println("Número de jogadores por time: " + numJogadoresPorTime);
-
-
-        Collections.sort(jogadores, (j1, j2) -> Double.compare(j2.getNivel(), j1.getNivel()));
-
-        int indiceJogador = 0;
-
-        for (Time time : times) {
-            System.out.println("\n----- " + time.getNome() + " -----");
-            double somaNivelTime = 0.0;
-
-            for (int i = 0; i < numJogadoresPorTime; i++) {
-                if (indiceJogador < numJogadores) {
-                    Jogadores jogadorAtual = jogadores.get(indiceJogador);
-                    time.adicionarJogador(jogadorAtual);
-                    somaNivelTime += jogadorAtual.getNivel();
-                    System.out.println(jogadorAtual.getNome() + " (Nível: " + jogadorAtual.getNivel() + ")");
-                    indiceJogador++;
-                } else {
-                    break;
-                }
-            }
-
-            double mediaNivelTime = somaNivelTime / numJogadoresPorTime;
-            String mediaFormatada = String.format("%.2f", mediaNivelTime);
-            
-            System.out.println("\nNível total do time: " + somaNivelTime);
-            System.out.println("Média do nível do time: " + mediaFormatada);
-        }
-
-        System.out.println("\nJogadores distribuídos nos times com sucesso!");
-    }
-    
-	static void mostrarArtilharia(Campeonato campeonato) {
-	    	
-	}
 	
 	static void buscarJogador(List<Jogadores> jogadores) {
         Scanner scanner = new Scanner(System.in);
@@ -213,16 +185,16 @@ class Jogadores {
     public void setTime(Time time) {
         this.time = time;
     }
+    
+    public Jogadores getProximo() {
+        return proximo;
+    }
+
+    public void setProximo(Jogadores proximo) {
+        this.proximo = proximo;
+    }
 
     public String toString() {
         return nome + " (" + nivel + " estrelas)";
     }
-
-    public Jogadores getProximo() {
-        return this.proximo;
-    }
-
-	public void setProximo(Jogadores proximo) {
-		this.proximo = proximo;
-	}
 }

@@ -104,6 +104,61 @@ class Campeonato {
         }
     }
     
+    static void distribuirJogadoresNosTimes(Scanner scanner, Campeonato campeonato, List<Jogadores> jogadores) {
+        System.out.print("Quantos jogadores em cada time? ");
+        int numJogadoresPorTime = scanner.nextInt();
+        scanner.nextLine();
+
+        List<Time> times = campeonato.getTimes();
+        int numTimes = times.size();
+        int numJogadores = jogadores.size();
+
+        if (numJogadores < numJogadoresPorTime * numTimes) {
+            System.out.println("\nNão há jogadores suficientes para distribuir entre os times.");
+        }
+        
+        System.out.println("\nNúmero de jogadores inscritos: " + numJogadores);
+        System.out.println("Número de time inscritos: " + numTimes);
+        System.out.println("Número de jogadores por time: " + numJogadoresPorTime);
+
+
+        Collections.sort(jogadores, (j1, j2) -> Double.compare(j2.getNivel(), j1.getNivel()));
+
+        int indiceJogador = 0;
+
+        for (Time time : times) {
+            System.out.println("\n----- " + time.getNome() + " -----");
+            double somaNivelTime = 0.0;
+
+            for (int i = 0; i < numJogadoresPorTime; i++) {
+                if (indiceJogador < numJogadores) {
+                    Jogadores jogadorAtual = jogadores.get(indiceJogador);
+                    time.adicionarJogador(jogadorAtual);
+                    somaNivelTime += jogadorAtual.getNivel();
+                    System.out.println(jogadorAtual.getNome() + " (Nível: " + jogadorAtual.getNivel() + ")");
+                    indiceJogador++;
+                } else {
+                    break;
+                }
+            }
+
+            double mediaNivelTime = somaNivelTime / numJogadoresPorTime;
+            String mediaFormatada = String.format("%.2f", mediaNivelTime);
+            
+            System.out.println("\nNível total do time: " + somaNivelTime);
+            System.out.println("Média do nível do time: " + mediaFormatada);
+        }
+        System.out.println("\nJogador(es) adicionado(s) à fila de espera: ");
+        while (indiceJogador < numJogadores) {
+            Jogadores jogador = jogadores.get(indiceJogador);
+            Jogadores.adicionarJogadorNaFila(jogador);
+            System.out.println("Nome: " + jogador.getNome() + ", Nível: " + jogador.getNivel());
+            indiceJogador++;
+        }
+        
+        System.out.println("\nJogadores distribuídos nos times com sucesso!");
+    }
+    
     static void mostrarTabela(Campeonato campeonato) {
         List<Time> times = campeonato.getTimes();
         Tabela tabela = new Tabela(times);

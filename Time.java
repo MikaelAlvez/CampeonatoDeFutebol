@@ -15,6 +15,7 @@ public class Time {
     private int saldoGols;
     private List<Jogadores> jogadores;
     Campeonato campeonato = new Campeonato();
+    private Jogadores primeiro;
 
     public Time(String nome) {
     	this.nome = nome;

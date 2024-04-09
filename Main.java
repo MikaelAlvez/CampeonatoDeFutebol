@@ -23,10 +23,10 @@ public class Main {
             		"5. Distribuir Jogadores nos Times\n" +
             		"6. Tabela\n" +
             		"7. Editar Placar\n" +
-            		"8. Artilharia\n" +
-            		"9. Buscar Jogador\n" +
-            		"10. Listar Jogadores\n" +
-            		//"11. Excluir Jogador\n" +
+            		"8. Buscar Jogador\n" +
+            		"9. Listar Jogadores\n" +
+            		"10. Jogadores sem Time\n" +
+            		"11. Remover Jogador\n" +
             		"12. Gerar arquivo de jogos\n" +
             		"0. Sair\n" +
             		"Escolha uma opção: ");
@@ -72,7 +72,7 @@ public class Main {
                     }
                     break;
                 case 5:
-                	Jogadores.distribuirJogadoresNosTimes(scanner, campeonato, jogadores);
+                	Campeonato.distribuirJogadoresNosTimes(scanner, campeonato, jogadores);
                     break;
                 case 6:
                     Campeonato.mostrarTabela(campeonato);
@@ -83,17 +83,17 @@ public class Main {
                     campeonato.mostrarJogos();
                     break;
                 case 8:
-                	Jogadores.mostrarArtilharia(campeonato);
-                    break;
-                case 9:
                 	Jogadores.buscarJogador(jogadores);
                 	break;
-                case 10:
+                case 9:
                 	Jogadores.listarJogador(jogadores);
                 	break;
-                case 11:
-                	
+                case 10:
+                	Jogadores.listarJogadoresNaFila();
                 	break;
+                case 11:
+          
+                    break;
                 case 12:
                     System.out.println("Informe o nome que deseja salvar o arquivo: ");
                     String nomeArquivoEscrita = scanner.nextLine();
